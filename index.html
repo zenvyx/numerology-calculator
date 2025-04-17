@@ -31,7 +31,7 @@
       margin-bottom: 20px;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="date"] {
       padding: 12px 20px;
       font-size: 1em;
       border: 2px solid #b2ebf2;
@@ -71,7 +71,12 @@
   <input type="text" id="nameInput" placeholder="Enter a name..." />
   <button onclick="calculateNumerology()">Reveal the Number</button>
 
+  <p>Or enter your date of birth to calculate your Life Path Number 🌱</p>
+  <input type="date" id="dobInput" />
+  <button onclick="calculateLifePath()">Calculate Life Path</button>
+
   <div class="result" id="result"></div>
+  <div class="result" id="lifePathResult"></div>
 
   <script>
     const numerologyMeanings = {
@@ -101,7 +106,6 @@
         }
       }
 
-      // Reduce to a single digit (excluding master numbers for simplicity)
       while (total > 9) {
         total = total.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
       }
@@ -109,6 +113,27 @@
       const meaning = numerologyMeanings[total] || "Mystery remains...";
       document.getElementById("result").innerHTML =
         `<strong>Numerology Number:</strong> ${total}<br><br><em>${meaning}</em>`;
+    }
+
+    function calculateLifePath() {
+      const dob = document.getElementById("dobInput").value;
+      if (!dob) return;
+      const [year, month, day] = dob.split("-").map(num => parseInt(num));
+
+      function reduceToSingleDigit(num) {
+        while (num > 9) {
+          num = num.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+        }
+        return num;
+      }
+
+      const total = reduceToSingleDigit(
+        reduceToSingleDigit(day) + reduceToSingleDigit(month) + reduceToSingleDigit(year)
+      );
+
+      const meaning = numerologyMeanings[total] || "A mystery beyond the numbers...";
+      document.getElementById("lifePathResult").innerHTML =
+        `<strong>Life Path Number:</strong> ${total}<br><br><em>${meaning}</em>`;
     }
   </script>
 </body>
