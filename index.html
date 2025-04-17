@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Numerology Name Meaning</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+      color: #2c3e50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #006064;
+    }
+
+    p {
+      font-size: 1.2em;
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 12px 20px;
+      font-size: 1em;
+      border: 2px solid #b2ebf2;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      width: 80%;
+      max-width: 400px;
+      background: #ffffffaa;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #00bcd4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00838f;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      max-width: 700px;
+      text-align: center;
+      color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <h1>Numerology Name Reader</h1>
+  <p>Type a name or word below to discover its numerological essence 🌌</p>
+  <input type="text" id="nameInput" placeholder="Enter a name..." />
+  <button onclick="calculateNumerology()">Reveal the Number</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const numerologyMeanings = {
+      1: "Leadership, independence, ambition, and originality.",
+      2: "Harmony, cooperation, sensitivity, and balance.",
+      3: "Creativity, joy, communication, and expression.",
+      4: "Stability, discipline, structure, and responsibility.",
+      5: "Freedom, adventure, adaptability, and dynamic energy.",
+      6: "Nurturing, care, responsibility, and service.",
+      7: "Spirituality, introspection, analysis, and mystery.",
+      8: "Power, success, material mastery, and strength.",
+      9: "Compassion, humanitarianism, wisdom, and completion."
+    };
+
+    const letterValues = {
+      A:1, B:2, C:3, D:4, E:5, F:6, G:7, H:8, I:9,
+      J:1, K:2, L:3, M:4, N:5, O:6, P:7, Q:8, R:9,
+      S:1, T:2, U:3, V:4, W:5, X:6, Y:7, Z:8
+    };
+
+    function calculateNumerology() {
+      const name = document.getElementById("nameInput").value.toUpperCase();
+      let total = 0;
+      for (let char of name) {
+        if (letterValues[char]) {
+          total += letterValues[char];
+        }
+      }
+
+      // Reduce to a single digit (excluding master numbers for simplicity)
+      while (total > 9) {
+        total = total.toString().split('').reduce((sum, digit) => sum + parseInt(digit), 0);
+      }
+
+      const meaning = numerologyMeanings[total] || "Mystery remains...";
+      document.getElementById("result").innerHTML =
+        `<strong>Numerology Number:</strong> ${total}<br><br><em>${meaning}</em>`;
+    }
+  </script>
+</body>
+</html>
